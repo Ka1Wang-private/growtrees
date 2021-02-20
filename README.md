@@ -75,28 +75,36 @@ Please also run `cd data/; ./download_data.sh` to get libsvm files under `data/`
   * The model performance numbers correspond to Table 3, and the generated plots in `roc_plots/` correspond to Figure 7 in the paper.
 * **Robustness:** To evaluate the robustness of models, we use the MILP attack: `xgbKantchelianAttack.py`. It uses Gurobi solver, so you need to obtain a licence from Gurobi to use it. They provide free academic license.
   * `mkdir logs`
-  * `mkdir adv_examples`
+  * `mkdir -p adv_examples/gbdt`
   * `mkdir -p result/gbdt`
   * breast_cancer:
     ```
-    for mtype in $(echo 'nature' 'robust' 'greedy'); do dt='breast_cancer'; python xgbKantchelianAttack.py --data 'data/breast_cancer_scale0.test' --model_type 'xgboost' --model "models/gbdt/${mtype}_${dt}.bin" --num_classes 2 --nfeat 10 --feature_start 1 --both --maxone -n 100 --out "result/gbdt/${mtype}_${dt}.txt" --adv "adv_examples/gbdt/${mtype}_${dt}_adv.pickle" >! logs/milp_gbdt_${mtype}_${dt}.log 2>&1&; done
+    for mtype in $(echo 'nature' 'robust' 'greedy'); do dt='breast_cancer'; python xgbKantchelianAttack.py --data 'data/breast_cancer_scale0.test' --model_type 'xgboost' --model "models/gbdt/${mtype}_${dt}.bin" --rand --num_classes 2 --nfeat 10 --feature_start 1 --both --maxone -n 100 --out "result/gbdt/${mtype}_${dt}.txt" --adv "adv_examples/gbdt/${mtype}_${dt}_adv.pickle" >! logs/milp_gbdt_${mtype}_${dt}.log 2>&1&; done
     ```
   * cod-rna
     ```
-    for md in $(echo 'nature_cod-rna' 'robust_cod-rna' 'greedy_cod-rna_center_eps0.03'); do python xgbKantchelianAttack.py --data 'data/cod-rna_s.t' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --num_classes 2 --nfeat 8 --feature_start 0 --both --maxone -n 5000 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}_adv.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
+    for md in $(echo 'nature_cod-rna' 'robust_cod-rna' 'greedy_cod-rna_center_eps0.03'); do python xgbKantchelianAttack.py --data 'data/cod-rna_s.t' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --rand --num_classes 2 --nfeat 8 --feature_start 0 --both --maxone -n 5000 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}_adv.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
     ```
   * ijcnn:
     ```
-    for md in $(echo 'nature_ijcnn' 'robust_ijcnn' 'greedy_ijcnn_center_eps0.02_nr60_md8'); do python xgbKantchelianAttack.py --data 'data/ijcnn1s0.t' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --num_classes 2 --nfeat 22 --feature_start 1 --both --maxone -n 100 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}_adv.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
+    for md in $(echo 'nature_ijcnn' 'robust_ijcnn' 'greedy_ijcnn_center_eps0.02_nr60_md8'); do python xgbKantchelianAttack.py --data 'data/ijcnn1s0.t' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --rand --num_classes 2 --nfeat 22 --feature_start 1 --both --maxone -n 100 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}_adv.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
     ```
   * binary_mnist:
     ```
-    for md in $(echo 'nature_binary_mnist' 'robust_binary_mnist' 'greedy_binary_mnist'); do python xgbKantchelianAttack.py -n 100 --data 'data/binary_mnist0.t' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --num_classes 2 --nfeat 784 --both --maxone --feature_start 0 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
+    for md in $(echo 'nature_binary_mnist' 'robust_binary_mnist' 'greedy_binary_mnist'); do python xgbKantchelianAttack.py -n 100 --data 'data/binary_mnist_round6.test.csv' --model_type 'xgboost' --model "models/gbdt/${md}.bin" --rand --num_classes 2 --nfeat 784 --both --maxone --feature_start 0 --out "result/gbdt/${md}.txt" --adv "adv_examples/gbdt/${md}.pickle" >! logs/milp_gbdt_${md}.log 2>&1&; done
     ```
 
-The commands for cod-rna dataset take weeks to run, whereas the commands for the other datasets should finish within a day. Therefore, we have provided the result logs here.
-
 #### How to train the models
+
+In the cloned [greedy branch of RobustTrees repo](https://github.com/surrealyz/RobustTrees/tree/greedy), after building the `xgboost` binary file, the following commands train the **natural**, **Chen's**, and **Ours** models respectively:
+```
+./xgboost data/breast_cancer.unrob.conf
+./xgboost data/breast_cancer.conf
+./xgboost data/breast_cancer.greedy.conf
+```
+
+For cod-rna, ijcnn, and binary_mnist datasets, the commands follow the same style, `./xgboost data/${dataset}.unrob.conf`, `./xgboost data/${dataset}.conf`, and `./xgboost data/${dataset}.greedy.conf`.
+
 
 ### Random Forest models
 

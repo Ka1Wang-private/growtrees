@@ -142,7 +142,12 @@ model_paths = {"breast_cancer": {
         }
 lists = ["nature", "robust", "greedy"]
 markers = ['o', '*', 'v']
+names = ["natural", "Chen's", "ours"]
+dataset_names = {"breast_cancer":"breast-cancer", "ijcnn":"ijcnn1", "cod-rna":"cod-rna", "binary_mnist":"MNIST 2 vs. 6"}
 markevery = 0.1
+
+from matplotlib.pyplot import figure
+figure(figsize=(2.8, 1.8))
 for i, train_method in enumerate(lists):
     
     print("=================[{}]=====================".format(train_method))
@@ -151,15 +156,18 @@ for i, train_method in enumerate(lists):
 
     fps, tps, thresholds, auc = get_roc_curve(model_path, data_path, nfeat, fstart)
     #print(fps, tps, thresholds)
-    plt.plot(fps, tps, label=train_method+ "({:.5f})".format(auc), marker=markers[i], markevery=markevery)
+    plt.plot(fps, tps, label=names[i]+ "({:.5f})".format(auc), marker=markers[i], markevery=markevery)
 
-plt.plot([0, 1], [0, 1], 'k--')
-plt.legend()
+#plt.plot([0, 1], [0, 1], 'k--')
+plt.legend(loc='lower right')
 if not os.path.exists("roc_plots/"):
     os.mkdir("roc_plots/")
     print("make dir", "roc_plots/")
-plt.title(dataset)
+plt.title(dataset_names[dataset])
+plt.xlabel("False positive rate")
+plt.ylabel("True positive rate")
 plt.savefig("roc_plots/"+dataset+"_roc.png")
+plt.savefig("roc_plots/"+dataset+"_roc.pdf", bbox_inches='tight')
 
 
 

@@ -108,17 +108,39 @@ For cod-rna, ijcnn, and binary_mnist datasets, the commands follow the same styl
 
 ### Random Forest models
 
-* **Performance:** To evaluate model accuracy, false positive rate, AUC, and plot the roc curve figures, please run the following commands:
-  * `python scripts/`
-
-  * The model performance numbers correspond to Table , and the generated plots in `roc_plots/` correspond to Figure  in the paper.
-* **Robustness:** 
-
 #### Trained models in the paper
+
+* Regular training, **natural** model in the paper: `models/rf/*best*.bin`
+* [Chen's robust training algorithm](https://github.com/chenhongge/RobustTrees), **Chen's** model in the paper: `models/gbdt/*heuristic*.bin`
+* Our training algorithm, **ours** model in the paper: `models/gbdt/*robust*.bin`
 
 #### Evaluate the models
 
+* **Performance:** To evaluate model accuracy, false positive rate, AUC, and plot the roc curve figures, please run the following commands:
+  * `python scripts/sklearn_roc_scripts.py breast_cancer`
+  * `python scripts/sklearn_roc_scripts.py ijcnn`
+  * `python scripts/sklearn_roc_scripts.py cod-rna`
+  * `python scripts/sklearn_roc_scripts.py binary_mnist`
+
+  * The model performance numbers correspond to Table 4, and the generated plots in `roc_plots/` correspond to Figure 9 in the paper.
+
+* **Robustness:** To evaluate the robustness of models, we use the MILP attack: `xgbKantchelianAttack.py`. It uses Gurobi solver, so you need to obtain a licence from Gurobi to use it. They provide free academic license.
+  * `mkdir logs`
+  * `mkdir -p result/sk-rf`
+  * use `attack_sklearn_selected_RF.py`
+
 #### How to train the models
+
+Move these things here.
+
+Train Sklearn Random Forests with selected parameters (actually this script trains unselected parameters as well):
+
+https://github.com/surrealyz/trees/blob/robust-rf/grid_search_sklearn.py
+
+Models are here:
+
+https://github.com/surrealyz/trees/tree/robust-rf/rf_grid_search/sklearn
+
 
 ## Twitter Spam Detection Application
 

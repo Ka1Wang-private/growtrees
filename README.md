@@ -135,9 +135,17 @@ The script `train_all_sklearn.py` trains all models, where the splitter choice `
 
 ## Twitter Spam Detection Application
 
-### Box Constraint Specification
-
 ### Trained models in the paper
+
+`models/gbdt/twitter/`
+
+### How to train the models
+
+For example, to train model M19, run this in RobustTrees: `./xgboost data/twitter_spam.greedy.flex.conf`
 
 ### Evaluate the models
 
+* **Performance:** 
+`scripts/model_accuracy.py`
+
+* **Robustness:**

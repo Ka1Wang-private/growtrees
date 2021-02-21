@@ -62,7 +62,7 @@ tree_size = {
     }
 }
 
-for dataset in datasets[0:1]:
+for dataset in datasets:
 
     log_fname = 'results/sk-rf/sklearn_RF_attack_result_%s.csv' % dataset
     if os.path.isfile(log_fname):

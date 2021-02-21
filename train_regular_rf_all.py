@@ -20,10 +20,10 @@ datasets = {"binary_mnist": ['binary_mnist0', 'binary_mnist0.t'],
             "cod-rna": ['cod-rna_s', 'cod-rna_s.t'],
             "ijcnn": ['ijcnn1s0', 'ijcnn1s0.t']}
 
-tree_size = {"binary_mnist": [60, 14],
-            "breast_cancer": [20, 6],
-            "cod-rna": [60, 14],
-            "ijcnn": [80, 14]}
+tree_size = {"binary_mnist": [20, 14],
+            "breast_cancer": [20, 4],
+            "cod-rna": [40, 14],
+            "ijcnn": [100, 14]}
 
 n_feat = {"binary_mnist": 784,
             "breast_cancer": 10,
@@ -42,7 +42,7 @@ binary_class = {"binary_mnist": True,
 
 def main(args):
     data_path = 'data/'
-    all_models_path = 'models/rf/nature/'
+    all_models_path = 'models/sk-rf/nature/'
     log_file_path = 'logs/train_regular_rf_all.log'
 
     logging.basicConfig(filename=log_file_path,

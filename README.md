@@ -131,16 +131,7 @@ For cod-rna, ijcnn, and binary_mnist datasets, the commands follow the same styl
 
 #### How to train the models
 
-Move these things here.
-
-Train Sklearn Random Forests with selected parameters (actually this script trains unselected parameters as well):
-
-https://github.com/surrealyz/trees/blob/robust-rf/grid_search_sklearn.py
-
-Models are here:
-
-https://github.com/surrealyz/trees/tree/robust-rf/rf_grid_search/sklearn
-
+The script `train_all_sklearn.py` trains all models, where the splitter choice `best` is **natural**, `heuristic` is **Chen's**, and `robust` is **ours**. You can modify the loop or use `train_rf_one.py` to train an individual model.
 
 ## Twitter Spam Detection Application
 

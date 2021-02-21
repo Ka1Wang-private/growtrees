@@ -19,7 +19,7 @@ zero_based = {"binary_mnist": True,
               "cod-rna": True,
               "ijcnn": False}
 model_dir = 'models/sk-rf'
-output_dir = 'results/sk-rf'
+output_dir = 'result/sk-rf'
 test_pickle_path = 'train_with_validation/data'
 attack_num = {
     "breast_cancer": 100,

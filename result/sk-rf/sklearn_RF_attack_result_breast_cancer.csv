@@ -1,0 +1,2 @@
+type,dataset,splitter,eps,nt,d,test acc,fpr,optimize for L1,optimize for L2,optimize for Linf,time
+sklearn,breast_cancer,best,0.0,20,4,0.9927007299270073,0.00980392156862745,0.6142771616161615,0.3839792444385592,0.23793598989899,0.48379999218565045

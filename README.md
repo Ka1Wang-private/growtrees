@@ -154,7 +154,7 @@ The following are examples to run the six attacks against the `twitter_spam_natu
     ```
     md='twitter_spam_nature'; r='_l1'; python xgbKantchelianAttack.py -n 100 --order 1 --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --nfeat 25 --maxone --feature_start 0 --out "result/gbdt/adap_${md}${r}.txt" --adv "adv_examples/gbdt/${md}${r}.pickle" >! logs/milp_gbdt_adap_${md}${r}.log &
     ```
-  * l2:
+  * l_2:
     ```
     md='twitter_spam_nature'; r='_l2'; python xgbKantchelianAttack.py -n 100 --order 2 --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --nfeat 25 --maxone --feature_start 0 --out "result/gbdt/adap_${md}${r}.txt" --adv "adv_examples/gbdt/${md}${r}.pickle" >! logs/milp_gbdt_adap_${md}${r}.log &
     ```

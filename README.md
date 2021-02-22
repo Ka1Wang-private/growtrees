@@ -149,3 +149,28 @@ For example, to train model M19, run this in RobustTrees: `./xgboost data/twitte
 `scripts/model_accuracy.py`
 
 * **Robustness:**
+The following are examples to run the six attacks against the `twitter_spam_nature` model. Change the model name accordingly for other models.
+  * l_1:
+    ```
+    md='twitter_spam_nature'; r='_l1'; python xgbKantchelianAttack.py -n 100 --order 1 --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --nfeat 25 --maxone --feature_start 0 --out "result/gbdt/adap_${md}${r}.txt" --adv "adv_examples/gbdt/${md}${r}.pickle" >! logs/milp_gbdt_adap_${md}${r}.log &
+    ```
+  * l2:
+    ```
+    md='twitter_spam_nature'; r='_l2'; python xgbKantchelianAttack.py -n 100 --order 2 --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --nfeat 25 --maxone --feature_start 0 --out "result/gbdt/adap_${md}${r}.txt" --adv "adv_examples/gbdt/${md}${r}.pickle" >! logs/milp_gbdt_adap_${md}${r}.log &
+    ```
+  * cost_1:
+    ```
+    o='obj1';b='bound_obj1'; md='twitter_spam_nature'; python flexible_xgbKantchelianAttack_cost.py -n 100 --weight config/weight/${o}.json -b "config/eps/${b}.json" --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --feature_start 0 --out "result/gbdt/adap_${md}_${o}.txt" --adv "adv_examples/gbdt/${md}_${o}.pickle" >! logs/milp_gbdt_adap_${md}_${o}.log &
+    ```
+  * cost_2:
+    ```
+    o='obj2'; md='twitter_spam_nature'; python flexible_xgbKantchelianAttack_cost.py -n 100 --weight "config/weight/${o}.json" --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --feature_start 0 --out "result/gbdt/adap_${md}_${o}.txt" --adv "adv_examples/gbdt/${md}_${o}.pickle" >! logs/milp_gbdt_adap_${md}_${o}.log &
+    ```
+  * cost_3:
+    ```
+    o='obj3';b='bound_obj3'; md='twitter_spam_nature'; python flexible_xgbKantchelianAttack_cost.py -n 100 --weight config/weight/${o}.json -b "config/eps/${b}.json" --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --feature_start 0 --out "result/gbdt/adap_${md}_${o}.txt" --adv "adv_examples/gbdt/${md}_${o}.pickle" >! logs/milp_gbdt_adap_${md}_${o}.log &
+    ```
+  * cost_4:
+    ```
+    o='obj4';b='bound_obj4'; md='twitter_spam_nature'; python flexible_xgbKantchelianAttack_cost.py -n 100 --weight config/weight/${o}.json -b "config/eps/${b}.json" --data 'data/500_malicious.libsvm' --model_type 'xgboost' --model "models/twitter/${md}.bin" --num_classes 2 --feature_start 0 --out "result/gbdt/adap_${md}_${o}.txt" --adv "adv_examples/gbdt/${md}_${o}.pickle" >! logs/milp_gbdt_adap_${md}_${o}.log &
+    ```

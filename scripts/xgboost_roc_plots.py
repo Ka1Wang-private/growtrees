@@ -132,7 +132,7 @@ model_paths = {"breast_cancer": {
                 "cod-rna":{
                     "nature": "models/gbdt/nature_cod-rna.bin",
                     "robust": "models/gbdt/robust_cod-rna.bin",
-                    "greedy": "models/gbdt/greedy_cod-rna_center_eps0.03.bin"
+                    "greedy": "models/gbdt/greedy_cod-rna_center_eps0.035_eta0.02.bin"
                     },
                 "binary_mnist":{
                     "nature": "models/gbdt/nature_binary_mnist.bin",
